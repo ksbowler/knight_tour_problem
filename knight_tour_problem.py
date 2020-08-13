@@ -1,16 +1,14 @@
 N = 8
-output = open("ktp1.cnf","w")
-for i in range(N**2):
+output = open("ktp_test.cnf","w")
+for i in range(N**2): #条件1-i
 	clause = []
 	for r in range(N):
 		for c in range(N):
 			clause.append(i*N**2 + r*N + c + 1)
 
-	buf = " ".join(map(str,clause))
-	buf += ' 0 \n'
+	buf = " ".join(map(str,clause)) + ' 0 \n'
 	output.write(buf)
-
-for i in range(N**2):
+for i in range(N**2): #条件1-ii
 	for r in range(N):
 		for c in range(N):
 			base = -(i*N**2 + r*N + c + 1)
@@ -19,11 +17,10 @@ for i in range(N**2):
 					clause = []
 					clause.append(base)
 					clause.append(-(i*N**2 + m*N + n + 2))
-					buf = " ".join(map(str,clause))
-					buf += ' 0 \n'
+					buf = " ".join(map(str,clause)) + ' 0 \n'
 					output.write(buf)
 
-for i in range(N**2-1):
+for i in range(N**2-1): #条件2
 	dif = [(2, 1),(2, -1),(-2, 1),(-2, -1),(1, 2),(1, -2),(-1, 2),(-1, -2)]
 	for r in range(N):
 		for c in range(N):
@@ -35,19 +32,17 @@ for i in range(N**2-1):
 					continue
 				clause.append((i+1)*N**2 + nr*N + nc + 1)
 
-			buf = " ".join(map(str,clause))
-			buf += ' 0 \n'
+			buf = " ".join(map(str,clause)) + ' 0 \n'
 			output.write(buf)
 
-for r in range(N):
+for r in range(N): #条件3
 	for c in range(N):
 		for i1 in range(N**2-1):
 			for i2 in range(i1+1, N**2):
 				clause = []
 				clause.append(-(i1*N**2 + r*N + c + 1))
 				clause.append(-(i2*N**2 + r*N + c + 1))
-				buf = " ".join(map(str,clause))
-				buf += ' 0 \n'
+				buf = " ".join(map(str,clause)) + ' 0 \n'
 				output.write(buf)
 
 output.close()
